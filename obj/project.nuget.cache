@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "CX+8URPnFx7uZYHNDzbRrERfrO//MfDTyWNJR+RTtzQ3/IJsAWo+UN7dLpoLxe+pqEcxhI3WyjyJWaW6uXW5+w==",
+  "success": true,
+  "projectFilePath": "/Users/meli/Desktop/Tyler's Stuff/Coding/VSCode/FixedGame/FixedGame.fsproj",
+  "expectedPackageFiles": [
+    "/Users/meli/.nuget/packages/fsharp.core/7.0.401/fsharp.core.7.0.401.nupkg.sha512"
+  ],
+  "logs": []
+}
