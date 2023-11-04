@@ -22,7 +22,6 @@ type Exits = {
     East: Exit
     South: Exit
     West: Exit
-
 }
 
 type Room = {
@@ -154,9 +153,7 @@ let gameWorld: World = {
         |> Seq.map (fun room -> (room.ID, room))
         |> Map.ofSeq
     Player = player
-
 }
-
 
 type Result<'TSuccess, 'TFailure> =
     |Success of 'TSuccess
@@ -164,10 +161,9 @@ type Result<'TSuccess, 'TFailure> =
 
 
 
+
 let extractDetailsFromRoom (room: Room) =
     room.Details
-
-
 
 
 let switch processFunc input =
@@ -193,8 +189,8 @@ let setCurrentRoom world room ={
 
 let getRoom world roomID = 
     match world.Rooms.TryFind roomID with
-    |Some room -> Success room
-    |None -> Failure "Room does not exit"
+    | Some room -> Success room
+    | None -> Failure "Room does not exit"
 
 
 
@@ -222,18 +218,19 @@ let west ({West = westExit}: Exits) = westExit
 
 let getCurrentRoom world = 
     world.Player.Location
-    |>getRoom world
+    |> getRoom world
 
 
 let move direction world = 
     world
     |> getCurrentRoom
-    |> (fun room -> room.exits)
-    |> getExit direction
+    |> bind (switch (fun room -> room.Exits))
+    |> bind (getExit direction)
+    |> bind (getRoom world)
+    |> bind (switch (setCurrentRoom world))
 
 
 gameWorld
 |> move south
-|> bind (move north)
-|> bind (switch  describeCurrentRoom)
+|> bind (switch describeCurrentRoom)
 |> ignore
